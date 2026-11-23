@@ -1,0 +1,11 @@
+id,product_id,category,image_url,photo_required
+BV-001,SKU-1001,toys,,
+BV-002,SKU-1002,media,http://example.com/img2.jpg,
+BV-003,SKU-1003,electronics,,
+BV-004,SKU-1004,visual_content,,true
+BV-005,SKU-1005,health,,
+BV-006,SKU-1006,toys,http://example.com/img6.jpg,
+BV-007,SKU-1007,supplements,,
+BV-008,SKU-1008,photography,,
+BV-009,SKU-1009,home,,
+BV-010,SKU-1010,food,,
