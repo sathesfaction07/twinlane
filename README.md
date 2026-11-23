@@ -1,4 +1,4 @@
-# BatchValidator
+# Twinlane
 
 Validates product listings in bulk against a compliance platform using headless browser automation. The key architectural choice: items are split into two processing tracks (image-dependent and text-only) before any browser work begins, because image validation is 3x slower and irrelevant for most items.
 
@@ -73,7 +73,7 @@ CSV Input
 ## Project Structure
 
 ```
-batch-validator/
+twinlane/
 ├── src/batch_validator/
 │   ├── cli.py                  Click entry point
 │   ├── config.py               Pipeline + selector config (YAML-driven)
@@ -100,16 +100,16 @@ pip install -e ".[dev]"
 playwright install chromium
 
 # Standard run
-batch-validator --input data/sample_input.csv --output results/
+twinlane --input data/sample_input.csv --output results/
 
 # With VLM fallback (screenshots ambiguous elements → asks Claude to read them)
-batch-validator --input data/sample_input.csv --output results/ --vlm
+twinlane --input data/sample_input.csv --output results/ --vlm
 
 # Generate Excel with color-coded decisions
-batch-validator --input data/sample_input.csv --output results/ --excel
+twinlane --input data/sample_input.csv --output results/ --excel
 
 # Validate selectors are still working (no items processed)
-batch-validator --input data/sample_input.csv --output results/ --dry-run
+twinlane --input data/sample_input.csv --output results/ --dry-run
 ```
 
 Options:

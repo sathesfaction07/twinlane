@@ -1,8 +1,8 @@
-# BatchValidator — Technical Architecture
+# Twinlane — Technical Architecture
 
 ## Overview
 
-BatchValidator is a headless browser automation tool that validates product listings in bulk against a compliance platform. It splits items into parallel processing tracks (image-dependent and text-only) before launching browsers, runs validation via Playwright async contexts with semaphore-controlled concurrency, and checkpoints progress incrementally so crashes lose at most 25 items of work. Results are exported to JSON, CSV, and optionally color-coded Excel.
+Twinlane is a headless browser automation tool that validates product listings in bulk against a compliance platform. It splits items into parallel processing tracks (image-dependent and text-only) before launching browsers, runs validation via Playwright async contexts with semaphore-controlled concurrency, and checkpoints progress incrementally so crashes lose at most 25 items of work. Results are exported to JSON, CSV, and optionally color-coded Excel.
 
 **Design principle:** Failure isolation. One bad record must never abort the batch. Every item is wrapped in retry + exception handling so a malformed product ID or platform timeout produces ERROR, not a stack trace that kills 500 remaining items.
 
@@ -12,7 +12,7 @@ BatchValidator is a headless browser automation tool that validates product list
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                           CLI (batch-validator)                         │
+│                           CLI (twinlane)                         │
 │  Args: --input, --output, --concurrent, --vlm, --excel, --dry-run      │
 └────────────────────────────────┬───────────────────────────────────────┘
                                  │
@@ -99,7 +99,7 @@ BatchValidator is a headless browser automation tool that validates product list
 
 ### 1. CLI (`src/batch_validator/cli.py`)
 
-Entry point: `batch-validator` console command. Built with Click.
+Entry point: `twinlane` console command. Built with Click.
 
 | Flag | Type | Default | Purpose |
 |:--|:--|:--|:--|
@@ -196,7 +196,7 @@ VLM fallback fires in `_read_status()` when `text_content()` returns empty or a 
 ## Data Flow
 
 ```
-1. User runs: batch-validator --input data/batch.csv --output results/ --vlm --excel
+1. User runs: twinlane --input data/batch.csv --output results/ --vlm --excel
 2. CLI constructs PipelineConfig, loads SelectorConfig from config/selectors.yaml
 3. Pipeline loads input CSV → 500 items
 4. Router classifies: 180 image, 320 text
@@ -334,22 +334,22 @@ pip install -e ".[dev]"
 playwright install chromium
 
 # Standard batch run
-batch-validator --input data/sample_input.csv --output results/
+twinlane --input data/sample_input.csv --output results/
 
 # With VLM fallback for ambiguous text extraction
-batch-validator --input data/sample_input.csv --output results/ --vlm
+twinlane --input data/sample_input.csv --output results/ --vlm
 
 # Generate Excel output with color-coded decisions
-batch-validator --input data/sample_input.csv --output results/ --excel
+twinlane --input data/sample_input.csv --output results/ --excel
 
 # Validate selectors before processing (dry-run)
-batch-validator --input data/sample_input.csv --output results/ --dry-run
+twinlane --input data/sample_input.csv --output results/ --dry-run
 
 # Custom concurrency and show browser window for debugging
-batch-validator --input data/batch.csv --output results/ --concurrent 3 --no-headless
+twinlane --input data/batch.csv --output results/ --concurrent 3 --no-headless
 
 # Resume after crash (automatically skips checkpointed items)
-batch-validator --input data/batch.csv --output results/
+twinlane --input data/batch.csv --output results/
 ```
 
 Output files (in `--output` directory):

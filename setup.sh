@@ -19,14 +19,14 @@ setup_venv() {
 
 main() {
     echo "╔═══════════════════════════════════════════════════════════════╗"
-    echo "║            BatchValidator — Setup                            ║"
+    echo "║            Twinlane — Setup                            ║"
     echo "╚═══════════════════════════════════════════════════════════════╝"
     detect_os; find_python; setup_venv
     echo ""
     echo "Ready. Usage:"
-    echo "  batch-validator --input data/sample_input.csv --output results/"
-    echo "  batch-validator --input data.csv --output results/ --vlm --excel"
-    echo "  batch-validator --input data.csv --output results/ --dry-run"
+    echo "  twinlane --input data/sample_input.csv --output results/"
+    echo "  twinlane --input data.csv --output results/ --vlm --excel"
+    echo "  twinlane --input data.csv --output results/ --dry-run"
 }
 
 main "$@"

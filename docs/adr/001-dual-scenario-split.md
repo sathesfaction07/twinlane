@@ -20,5 +20,5 @@ Split the pipeline into two parallel tracks at the routing layer. Items are clas
 ## Alternatives Considered
 
 1. **Single path, skip image check based on flag** — simpler code but muddies the decision logic. The `_evaluate` method would need `if scenario == "image"` branches everywhere.
-2. **Separate CLI commands** (`batch-validator text` / `batch-validator image`) — forces the user to pre-split their input and run twice. Worse UX.
+2. **Separate CLI commands** (`twinlane text` / `twinlane image`) — forces the user to pre-split their input and run twice. Worse UX.
 3. **Router as middleware** (check mid-processing) — too late. By the time you know an item doesn't need image checks, you've already loaded the page. The routing must happen *before* browser interaction.
