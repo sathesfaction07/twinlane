@@ -19,7 +19,7 @@ DECISION_COLORS = {
 
 def export_json(results: list[dict], output_path: Path) -> None:
     summary = _build_summary(results)
-    with open(output_path / "results.json", "w") as f:
+    with open(output_path / "results.json", "w", encoding="utf-8") as f:
         json.dump({"summary": summary, "results": results}, f, indent=2)
     logger.info(f"JSON: {output_path / 'results.json'}")
 

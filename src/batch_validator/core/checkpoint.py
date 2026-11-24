@@ -15,7 +15,7 @@ class Checkpoint:
     def _load(self):
         if not self.path.exists():
             return
-        with open(self.path) as f:
+        with open(self.path, encoding="utf-8") as f:
             state = json.load(f)
         self.completed = set(state.get("completed", []))
         self.results = state.get("results", [])
@@ -23,7 +23,7 @@ class Checkpoint:
 
     def save(self):
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.path, "w") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             json.dump({"completed": list(self.completed), "results": self.results}, f)
 
     def mark(self, item_id: str, result: dict):

@@ -98,11 +98,11 @@ class ValidationPipeline:
     def _load_input(self) -> list[dict]:
         path = self.config.input_path
         if path.suffix == ".json":
-            with open(path) as f:
+            with open(path, encoding="utf-8") as f:
                 return json.load(f)
 
         items = []
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 if row.get("id"):

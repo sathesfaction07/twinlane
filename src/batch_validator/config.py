@@ -20,7 +20,7 @@ class SelectorConfig:
     def from_yaml(cls, path: Path) -> "SelectorConfig":
         if not path.exists():
             return cls()
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
         return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
 
